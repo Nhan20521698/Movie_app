@@ -1,0 +1,30 @@
+
+body {
+  margin: 0;
+  background-color: #141414;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.row {
+  margin-left: 20px;
+}
+
+.row-posters {
+  display: flex;
+  overflow-x: scroll;
+}
+
+.row-posters::-webkit-scrollbar {
+  display: none;
+}
+
+.poster {
+  max-height: 160px;
+  margin-right: 10px;
+  transition: transform 0.3s;
+}
+
+.poster:hover {
+  transform: scale(1.1);
+}
