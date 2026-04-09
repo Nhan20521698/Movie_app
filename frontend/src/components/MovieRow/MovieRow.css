@@ -1,0 +1,62 @@
+.movie-row {
+  position: relative;
+  padding: 20px;
+}
+
+.movie-row h2 {
+  color: white;
+  margin-bottom: 10px;
+}
+
+/* container scroll */
+.row {
+  display: flex;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+}
+
+.row::-webkit-scrollbar {
+  display: none;
+}
+
+/* mỗi card = 1/4 màn hình */
+.card {
+  min-width: 25%;
+  padding: 5px;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 6px;
+  transition: transform 0.3s;
+}
+
+.card img:hover {
+  transform: scale(1.1);
+}
+
+/* nút điều hướng */
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.6);
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 2;
+}
+
+.nav:hover {
+  background: rgba(0,0,0,0.8);
+}
+
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}

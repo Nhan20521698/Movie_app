@@ -14,6 +14,7 @@ app.use(express.json());
 
 app.use("/api/movies", movieRoutes);
 
+
 sequelize.authenticate().then(() => {
   console.log("DB connected");
   app.listen(5000, () => console.log("Server running"));
