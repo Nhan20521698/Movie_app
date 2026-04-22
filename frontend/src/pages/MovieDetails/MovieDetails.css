@@ -1,0 +1,215 @@
+/* =========================
+   BASE (DESKTOP)
+========================= */
+
+.movie-detail {
+  background: #000;
+  min-height: 100vh;
+  color: white;
+  padding: 40px;
+}
+
+/* CONTAINER */
+.detail-container {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  margin-top: 2em;
+}
+
+/* POSTER */
+.poster img {
+  width: 300px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+/* INFO */
+.info {
+  flex: 1;
+}
+
+.info h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+/* META */
+.meta {
+  display: flex;
+  gap: 20px;
+  color: #aaa;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+/* DESCRIPTION */
+.description {
+  max-width: 600px;
+  line-height: 1.6;
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+/* SECTION */
+.section {
+  margin-bottom: 20px;
+}
+
+/* TAGS */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tags span {
+  background: #111;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.tags span:hover {
+  background: red;
+}
+
+/* BUTTON */
+.actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.play {
+  background: red;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.like {
+  background: #222;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+/* STATS */
+.stats-badges {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.stats-badges span {
+  background: #222;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: white;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 1024px) {
+  .movie-detail {
+    padding: 30px;
+  }
+
+  .poster img {
+    width: 250px;
+  }
+
+  .info h1 {
+    font-size: 30px;
+  }
+
+  .detail-container {
+    gap: 25px;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+  .movie-detail {
+    padding: 20px;
+  }
+
+  .detail-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .poster img {
+    width: 220px;
+  }
+
+  .info {
+    width: 100%;
+  }
+
+  .info h1 {
+    font-size: 26px;
+  }
+
+  .meta {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .description {
+    max-width: 100%;
+    font-size: 14px;
+  }
+
+  .actions {
+    justify-content: center;
+  }
+
+  .tags {
+    justify-content: center;
+  }
+
+  .stats-badges {
+    justify-content: center;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 480px) {
+  .movie-detail {
+    padding: 15px;
+  }
+
+  .poster img {
+    width: 180px;
+  }
+
+  .info h1 {
+    font-size: 22px;
+  }
+
+  .play,
+  .like {
+    width: 100%;
+  }
+}

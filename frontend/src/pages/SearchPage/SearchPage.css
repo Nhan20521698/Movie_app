@@ -1,0 +1,65 @@
+.search-page {
+  background: #000;
+  min-height: 100vh;
+}
+
+.search-title {
+  color: white;
+  padding: 20px;
+  font-size: 26px;
+}
+
+/* GRID RESPONSIVE */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .card img {
+    height: 200px;
+  }
+
+  .search-title {
+    font-size: 20px;
+    text-align: center;
+  }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .card img {
+    height: 160px;
+  }
+}

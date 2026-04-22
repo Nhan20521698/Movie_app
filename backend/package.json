@@ -2,12 +2,12 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Nguyễn Lê Trọng Nhân",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
@@ -17,6 +17,7 @@
     "express": "^5.2.1",
     "mysql": "^2.18.1",
     "mysql2": "^3.20.0",
+    "p-limit": "^7.3.0",
     "sequelize": "^6.37.8"
   }
 }

@@ -1,3 +1,5 @@
+import './MovieCard.css';
+
 function MovieCard({ movie }) {
   return (
     <img
