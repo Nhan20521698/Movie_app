@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import "./MovieRow.css";
+import { Link } from "react-router-dom";
 
 function MovieRow({ title, movies }) {
   const rowRef = useRef();
@@ -69,10 +70,16 @@ function MovieRow({ title, movies }) {
           }, 5000);
         }}
       >
-        {movies.slice(3, 23).map((movie) => (
-          <div key={movie.id} className="card">
-            <img src={movie.image || ""} alt={movie.title} />
-          </div>
+        {movies.slice(0, 20).map((movie) => (
+          <Link
+    to={`/movies/${movie.id}`}
+    key={movie.id}
+    className="card-link"
+  >
+    <div className="card">
+      <img src={movie.image || ""} alt={movie.title} />
+    </div>
+  </Link>
         ))}
       </div>
     </div>
