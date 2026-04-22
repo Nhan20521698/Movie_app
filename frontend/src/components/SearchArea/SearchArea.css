@@ -54,12 +54,127 @@
   overflow: hidden;
 }
 
+
+/* =========================
+   BASE IMPROVEMENT
+========================= */
+
+.search-input {
+  display: flex;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  max-width: 100%;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.input-search {
+  flex: 1;
+  padding: 1em;
+  border: none;
+  outline: none;
+  font-size: 15px;
+}
+
+.btn-search {
+  background: #e50914;
+  color: white;
+  border: none;
+  padding: 1em 1.5em;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+  white-space: nowrap;
+}
+
+.btn-search:hover {
+  background: #f40612;
+}
+
+/* focus đẹp hơn */
+.input-search:focus {
+  box-shadow: inset 0 0 0 2px #e50914;
+}
+
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 1024px) {
+  .search-area {
+    padding: 2em 1em;
+  }
+
+  .search-area h2 {
+    font-size: 24px;
+  }
+
+  .search-area .container {
+    max-width: 700px;
+  }
+}
+
+/* =========================
+   MOBILE (IMPORTANT UPGRADE)
+========================= */
 @media (max-width: 768px) {
+  .search-area {
+    padding: 1.5em 1em;
+  }
+
+  .search-area h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .search-area .container {
+    width: 100%;
+  }
+
+  /* đổi layout nhưng giữ đẹp */
   .search-input {
     flex-direction: column;
+    border-radius: 12px;
+  }
+
+  .input-search {
+    width: 100%;
+    padding: 0.9em;
+    font-size: 14px;
+    text-align: center;
   }
 
   .btn-search {
     width: 100%;
+    padding: 0.9em;
+    border-radius: 0;
+    font-size: 14px;
+  }
+}
+
+/* =========================
+   SMALL MOBILE (480px)
+========================= */
+@media (max-width: 480px) {
+  .search-area {
+    padding: 1.2em 0.8em;
+  }
+
+  .search-area h2 {
+    font-size: 18px;
+  }
+
+  .input-search {
+    font-size: 13px;
+    padding: 0.8em;
+  }
+
+  .btn-search {
+    font-size: 13px;
+    padding: 0.8em;
+  }
+
+  /* UX nhỏ: button full touch area */
+  .btn-search {
+    min-height: 44px;
   }
 }

@@ -30,3 +30,79 @@
 .banner-content p {
   margin-top: 10px;
 }
+
+
+/* =========================
+   TABLET (<=1024px)
+========================= */
+@media (max-width: 1024px) {
+  .banner {
+    height: 420px;
+  }
+
+  .banner-content h1 {
+    font-size: 34px;
+  }
+
+  .banner-content p {
+    font-size: 15px;
+  }
+
+  .banner-content {
+    max-width: 500px;
+  }
+}
+
+/* =========================
+   TABLET SMALL (<=768px)
+========================= */
+@media (max-width: 768px) {
+  .banner {
+    height: 350px;
+  }
+
+  .banner-content {
+    max-width: 90%;
+  }
+
+  .banner-content h1 {
+    font-size: 28px;
+  }
+
+  .banner-content p {
+    font-size: 14px;
+  }
+}
+
+/* =========================
+   MOBILE (<=480px)
+========================= */
+@media (max-width: 480px) {
+  .banner {
+    height: 280px;
+  }
+
+  .banner-content {
+    width: 90%;
+    padding: 0 10px;
+  }
+
+  .banner-content h1 {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  .banner-content p {
+    font-size: 12px;
+    margin-top: 8px;
+  }
+
+  .overlay {
+    background: linear-gradient(
+      to top,
+      rgba(0,0,0,0.9),
+      rgba(0,0,0,0.2),
+      transparent
+    );
+  }
+}

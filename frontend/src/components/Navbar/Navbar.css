@@ -171,3 +171,58 @@
     justify-content: center;
   }
 }
+
+@media (max-width: 480px) {
+
+  .navbar .container {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+  }
+
+  /* HEADER (LOGO) */
+  .navbar .container .header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .navbar .container .header img {
+    height: 3em;
+    margin-top: 0;
+  }
+
+  /* NAV LINKS */
+  .navbar .container .nav-links {
+    width: 100%;
+    flex-direction: column;
+    gap: 6px;
+    padding: 0;
+  }
+
+  .navbar .container .nav-links li {
+    width: 100%;
+    text-align: center;
+    padding: 0.6em;
+    background: #1f1f1f;
+    border-radius: 6px;
+    font-size: 13px;
+  }
+
+  /* USER BUTTONS */
+  .nav-user {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .login,
+  .signup {
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+    font-size: 13px;
+  }
+}
