@@ -6,50 +6,48 @@ function MovieRow({ title, movies }) {
   const rowRef = useRef();
   const intervalRef = useRef();
 
-  // ✅ luôn gọi hook trước
   useEffect(() => {
-    if (!movies || movies.length === 0) return;
+    if (!movies?.length) return;
 
-    const start = () => {
-      intervalRef.current = setInterval(() => {
-        const current = rowRef.current;
-        if (!current) return;
+    intervalRef.current = setInterval(() => {
+      const el = rowRef.current;
+      if (!el) return;
 
-        const maxScroll = current.scrollWidth - current.clientWidth;
+      const maxScroll = el.scrollWidth - el.clientWidth;
 
-        if (current.scrollLeft >= maxScroll) {
-          current.scrollLeft = 0;
-        } else {
-          current.scrollLeft += current.offsetWidth;
-        }
-      }, 5000);
-    };
-
-    start();
+      if (el.scrollLeft >= maxScroll) {
+        el.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        el.scrollBy({ left: 800, behavior: "smooth" });
+      }
+    }, 5000);
 
     return () => clearInterval(intervalRef.current);
   }, [movies]);
 
-  // ✅ return đặt SAU hook
-  if (!movies || movies.length === 0) return null;
+  if (!movies?.length) return null;
 
-  const scroll = (direction) => {
-    const current = rowRef.current;
-    if (!current) return;
+  const scroll = (dir) => {
+    const el = rowRef.current;
+    if (!el) return;
 
-    const scrollAmount = current.offsetWidth;
-
-    current.scrollLeft += direction === "next"
-      ? scrollAmount
-      : -scrollAmount;
+    el.scrollBy({
+      left: dir === "next" ? 800 : -800,
+      behavior: "smooth"
+    });
   };
 
   return (
     <div className="movie-row">
       <h2>{title}</h2>
 
-      <button className="nav prev" onClick={() => scroll("prev")}>❮</button>
-      <button className="nav next" onClick={() => scroll("next")}>❯</button>
+      <button className="nav prev" onClick={() => scroll("prev")}>
+        ❮
+      </button>
+
+      <button className="nav next" onClick={() => scroll("next")}>
+        ❯
+      </button>
 
       <div
         className="row"
@@ -57,29 +55,29 @@ function MovieRow({ title, movies }) {
         onMouseEnter={() => clearInterval(intervalRef.current)}
         onMouseLeave={() => {
           intervalRef.current = setInterval(() => {
-            const current = rowRef.current;
-            if (!current) return;
+            const el = rowRef.current;
+            if (!el) return;
 
-            const maxScroll = current.scrollWidth - current.clientWidth;
+            const maxScroll = el.scrollWidth - el.clientWidth;
 
-            if (current.scrollLeft >= maxScroll) {
-              current.scrollLeft = 0;
+            if (el.scrollLeft >= maxScroll) {
+              el.scrollTo({ left: 0, behavior: "smooth" });
             } else {
-              current.scrollLeft += current.offsetWidth;
+              el.scrollBy({ left: 800, behavior: "smooth" });
             }
           }, 5000);
         }}
       >
         {movies.slice(0, 20).map((movie) => (
           <Link
-    to={`/movies/${movie.id}`}
-    key={movie.id}
-    className="card-link"
-  >
-    <div className="card">
-      <img src={movie.image || ""} alt={movie.title} />
-    </div>
-  </Link>
+            to={`/movies/${movie.id}`}
+            key={movie.id}
+            className="card-link"
+          >
+            <div className="card">
+              <img src={movie.image} alt={movie.title} />
+            </div>
+          </Link>
         ))}
       </div>
     </div>

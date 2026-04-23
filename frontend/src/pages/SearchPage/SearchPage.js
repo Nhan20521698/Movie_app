@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { searchMovies } from "../../services/api";
 import Navbar from "../../components/Navbar/Navbar";
+import Footer from "../../components/Footer/Footer";
 import SearchArea from "../../components/SearchArea/SearchArea";
 import "./SearchPage.css";
 
@@ -19,7 +20,12 @@ function SearchPage() {
   const keyword = query.get("keyword");
 
   useEffect(() => {
-    if (!keyword) return;
+    // ✅ FIX: xử lý khi không có keyword
+    if (!keyword) {
+      setMovies([]);
+      setLoading(false);
+      return;
+    }
 
     setLoading(true);
     setCurrentPage(1);
@@ -35,19 +41,37 @@ function SearchPage() {
       .finally(() => setLoading(false));
   }, [keyword]);
 
-  // Pagination
+  // ================= PAGINATION =================
   const indexOfLast = currentPage * moviesPerPage;
   const indexOfFirst = indexOfLast - moviesPerPage;
   const currentMovies = movies.slice(indexOfFirst, indexOfLast);
 
   const totalPages = Math.ceil(movies.length / moviesPerPage);
 
+  const getPages = () => {
+    const pages = [];
+
+    let start = Math.max(1, currentPage - 1);
+    let end = Math.min(totalPages, start + 2);
+
+    if (end - start < 2) {
+      start = Math.max(1, end - 2);
+    }
+
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+
+    return pages;
+  };
+
   return (
     <div className="search-page">
       <Navbar />
-        <SearchArea />
+      <SearchArea />
+
       <h2 className="search-title">
-        🔍 Kết quả cho: "{keyword}"
+        🔍 Result for: "{keyword || ""}"
       </h2>
 
       {/* LOADING */}
@@ -59,6 +83,12 @@ function SearchPage() {
               <div key={i} className="skeleton"></div>
             ))}
         </div>
+      ) : !keyword ? (
+        // ✅ FIX: chưa nhập keyword
+        <div className="no-result">
+          <h2>Start searching...</h2>
+          <p>Enter a keyword to find movies</p>
+        </div>
       ) : movies.length > 0 ? (
         <>
           {/* GRID */}
@@ -67,7 +97,7 @@ function SearchPage() {
               <div
                 key={movie.id}
                 className="card"
-                onClick={() => navigate(`/movie/${movie.id}`)}
+                onClick={() => navigate(`/movies/${movie.id}`)}
               >
                 <img src={movie.image} alt={movie.title} />
 
@@ -85,28 +115,54 @@ function SearchPage() {
 
           {/* PAGINATION */}
           <div className="pagination">
-            {[...Array(totalPages)].map((_, i) => (
+            {/* PREV */}
+            <button
+              disabled={currentPage === 1}
+              onClick={() => {
+                setCurrentPage(currentPage - 1);
+                window.scrollTo(0, 0);
+              }}
+            >
+              ❮
+            </button>
+
+            {/* 3 PAGE */}
+            {getPages().map((page) => (
               <button
-                key={i}
-                className={currentPage === i + 1 ? "active" : ""}
+                key={page}
+                className={currentPage === page ? "active" : ""}
                 onClick={() => {
-                  setCurrentPage(i + 1);
+                  setCurrentPage(page);
                   window.scrollTo(0, 0);
                 }}
               >
-                {i + 1}
+                {page}
               </button>
             ))}
+
+            {/* NEXT */}
+            <button
+              disabled={currentPage === totalPages}
+              onClick={() => {
+                setCurrentPage(currentPage + 1);
+                window.scrollTo(0, 0);
+              }}
+            >
+              ❯
+            </button>
           </div>
         </>
       ) : (
+        // ✅ FIX: không có kết quả
         <div className="no-result">
-          <h2>Không tìm thấy kết quả</h2>
+          <h2>No results found</h2>
           <p>
-            Không có phim nào với từ khóa: <b>"{keyword}"</b>
+            There are no movies with the keyword: <b>"{keyword}"</b>
           </p>
         </div>
       )}
+
+      <Footer />
     </div>
   );
 }

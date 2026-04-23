@@ -65,6 +65,31 @@
   font-size: 24px;
   padding: 10px;
   border-radius: 50%;
+  z-index: 1000;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+.nav {
+  background: rgba(0,0,0,0.6);
+  border: none;
+  color: white;
+  font-size: 28px;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.movie-row:hover .nav {
+  opacity: 1; /* 👈 hover mới hiện giống Netflix */
 }
 
 /* MOBILE DISABLE NAV */

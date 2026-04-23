@@ -20,4 +20,12 @@ export const searchMovies = (keyword) => {
 
 export const getMovieById = (id) => api.get(`/movies/${id}`);
 
+export const register = (data) => {
+  return api.post("/auth/register", data);
+};
+
+export const login = (data) => {
+  return api.post("/auth/login", data);
+};
+
 export default api;
