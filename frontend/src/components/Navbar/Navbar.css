@@ -151,6 +151,66 @@
   }
 }
 
+.user-box {
+  position: relative;
+  cursor: pointer;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #e50914;
+  object-fit: cover;
+}
+
+/* dropdown */
+.dropdown {
+  position: absolute;
+  top: 55px;
+  right: 0;
+  background: #1c1c1c;
+  padding: 15px;
+  border-radius: 10px;
+  min-width: 180px; /* 🔥 to hơn */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  animation: fadeIn 0.2s ease;
+}
+
+.dropdown p {
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.dropdown button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #e50914;
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.dropdown button:hover {
+  background: #f6121d;
+  transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* =========================
    SMALL MOBILE (<=480px)
 ========================= */

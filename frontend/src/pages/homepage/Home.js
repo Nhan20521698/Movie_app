@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Banner from "../../components/Banner/Banner";
 import MovieRow from "../../components/MovieRow/MovieRow";
 import SearchArea from "../../components/SearchArea/SearchArea";
+import Footer from "../../components/Footer/Footer";
 
 function Home() {
   const [movies, setMovies] = useState([]);
@@ -11,53 +12,63 @@ function Home() {
   const [actionMovies, setActionMovies] = useState([]);
   const [animationMovies, setAnimationMovies] = useState([]);
   const [horrorMovies, setHorrorMovies] = useState([]);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
-    Promise.all([
-      getMovies(),
-      getMoviesByGenre("Romance"),
-      getMoviesByGenre("Action"),
-      getMoviesByGenre("Animation"),
-      getMoviesByGenre("Horror"),
-    ])
-      .then(([allRes, romanceRes, actionRes, animationRes, horrorRes]) => {
-        setMovies(allRes?.data || []);
-        setRomanceMovies(romanceRes?.data || []);
-        setActionMovies(actionRes?.data || []);
-        setAnimationMovies(animationRes?.data || []);
-        setHorrorMovies(horrorRes?.data || []);
-      })
-      .catch(err => {
-        setError("Không load được dữ liệu");
+    // 🔥 helper cache
+    const fetchWithCache = async (key, apiCall, setter) => {
+      try {
+        const cached = sessionStorage.getItem(key);
+
+        if (cached) {
+          setter(JSON.parse(cached));
+        } else {
+          const res = await apiCall();
+          const data = res?.data || [];
+          setter(data);
+          sessionStorage.setItem(key, JSON.stringify(data));
+        }
+      } catch (err) {
         console.error(err);
-      })
-      .finally(() => setLoading(false));
+      }
+    };
+
+    // 🔥 gọi song song nhưng không block UI
+    fetchWithCache("movies", getMovies, setMovies);
+    fetchWithCache("romance", () => getMoviesByGenre("Romance"), setRomanceMovies);
+    fetchWithCache("action", () => getMoviesByGenre("Action"), setActionMovies);
+    fetchWithCache("animation", () => getMoviesByGenre("Animation"), setAnimationMovies);
+    fetchWithCache("horror", () => getMoviesByGenre("Horror"), setHorrorMovies);
+
+    setLoading(false); // 🔥 không chờ API
   }, []);
 
-  if (loading) return <h2 style={{ color: "white" }}>Loading...</h2>;
   if (error) return <h2 style={{ color: "red" }}>{error}</h2>;
 
   return (
     <div className="home">
       <Navbar />
-      <SearchArea onResults={setSearchResults}/>
+      <SearchArea onResults={setSearchResults} />
 
+      {/* 🔥 Banner hiện ngay khi có data */}
       {movies.length > 0 && (
-        <Banner movies={movies.slice(3, 6)} />
+        <Banner movies={movies.slice(0, 5)} />
       )}
 
-      <MovieRow title="🔥 Trending" movies={movies} />
+      {/* 🔥 từng row tự load */}
+      <MovieRow title="🔥 Trending" movies={movies} loading={!movies.length} />
 
-      <MovieRow title="💖 Romance" movies={romanceMovies} />
+      <MovieRow title="💖 Romance" movies={romanceMovies} loading={!romanceMovies.length} />
 
-      <MovieRow title="⚡ Action" movies={actionMovies} />
+      <MovieRow title="⚡ Action" movies={actionMovies} loading={!actionMovies.length} />
 
-      <MovieRow title="🎬 Animation" movies={animationMovies} />
+      <MovieRow title="🎬 Animation" movies={animationMovies} loading={!animationMovies.length} />
 
-      <MovieRow title="👻 Horror" movies={horrorMovies} />
+      <MovieRow title="👻 Horror" movies={horrorMovies} loading={!horrorMovies.length} />
+      <Footer />
     </div>
   );
 }

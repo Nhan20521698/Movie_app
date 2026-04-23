@@ -3,6 +3,7 @@ const sequelize = require("../config/db");
 const Movie = require("./movie");
 const Actor = require("./actor");
 const Genre = require("./genre");
+const User = require("./user");
 
 // relations
 Movie.belongsToMany(Actor, {
@@ -37,5 +38,6 @@ module.exports = {
   sequelize,
   Movie,
   Actor,
-  Genre
+  Genre,
+  User
 };

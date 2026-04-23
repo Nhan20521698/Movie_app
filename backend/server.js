@@ -14,6 +14,7 @@ app.use(express.json());
 
 app.use("/api/movies", movieRoutes);
 
+app.use("/api/auth", require("./routes/auth.routes"));
 
 sequelize.authenticate().then(() => {
   console.log("DB connected");

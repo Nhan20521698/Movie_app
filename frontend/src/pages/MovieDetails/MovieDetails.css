@@ -1,62 +1,92 @@
 /* =========================
-   BASE (DESKTOP)
+   PAGE BACKDROP (NETFLIX STYLE)
 ========================= */
-
 .movie-detail {
-  background: #000;
+  position: relative;
   min-height: 100vh;
   color: white;
-  padding: 40px;
+  padding: 60px 40px;
+  overflow: hidden;
 }
 
-/* CONTAINER */
+/* BACKDROP IMAGE */
+.movie-detail::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: var(--backdrop) center/cover no-repeat;
+
+  filter: blur(20px) brightness(0.3);
+  z-index: -2;
+}
+
+/* DARK OVERLAY */
+.movie-detail::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #000 20%, transparent 80%);
+  z-index: -1;
+}
+
+/* =========================
+   CONTAINER
+========================= */
 .detail-container {
   display: flex;
   gap: 40px;
   align-items: flex-start;
-  margin-top: 2em;
+  margin-top: 40px;
 }
 
-/* POSTER */
+/* =========================
+   POSTER
+========================= */
 .poster img {
   width: 300px;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+  border-radius: 10px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+  transition: transform 0.3s ease;
 }
 
-/* INFO */
+.poster img:hover {
+  transform: scale(1.05);
+}
+
+/* =========================
+   INFO
+========================= */
 .info {
   flex: 1;
 }
 
 .info h1 {
-  font-size: 36px;
+  font-size: 42px;
   margin-bottom: 10px;
+  font-weight: 700;
 }
 
 /* META */
 .meta {
   display: flex;
-  gap: 20px;
-  color: #aaa;
+  gap: 15px;
+  color: #ccc;
   margin-bottom: 15px;
   flex-wrap: wrap;
 }
 
 /* DESCRIPTION */
 .description {
-  max-width: 600px;
+  max-width: 700px;
   line-height: 1.6;
-  color: #ccc;
+  color: #ddd;
   margin-bottom: 20px;
 }
 
-/* SECTION */
-.section {
-  margin-bottom: 20px;
-}
-
-/* TAGS */
+/* =========================
+   TAGS
+========================= */
 .tags {
   display: flex;
   flex-wrap: wrap;
@@ -64,45 +94,63 @@
 }
 
 .tags span {
-  background: #111;
-  padding: 8px 14px;
+  background: rgba(255,255,255,0.1);
+  padding: 6px 14px;
   border-radius: 20px;
-  font-size: 14px;
+  font-size: 13px;
   transition: 0.3s;
 }
 
 .tags span:hover {
-  background: red;
+  background: #e50914;
 }
 
-/* BUTTON */
-.actions {
+/* =========================
+   ACTION BUTTONS
+========================= */
+.action-details {
   margin-top: 20px;
   display: flex;
-  gap: 15px;
+  gap: 12px;
   flex-wrap: wrap;
+  left: 0;
 }
 
+/* PLAY */
 .play {
-  background: red;
+  background: #e50914;
   color: white;
-  padding: 12px 25px;
+  padding: 12px 24px;
   border: none;
   cursor: pointer;
-  border-radius: 6px;
-  font-size: 16px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: 0.3s;
 }
 
+.play:hover {
+  background: #f6121d;
+}
+
+/* LIKE */
 .like {
-  background: #222;
+  background: rgba(255,255,255,0.15);
   color: white;
-  padding: 12px 25px;
+  padding: 12px 24px;
   border: none;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: 4px;
+  transition: 0.3s;
 }
 
-/* STATS */
+.like:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+/* =========================
+   STATS
+========================= */
 .stats-badges {
   display: flex;
   gap: 10px;
@@ -111,39 +159,28 @@
 }
 
 .stats-badges span {
-  background: #222;
-  padding: 6px 10px;
+  background: rgba(255,255,255,0.15);
+  padding: 5px 10px;
   border-radius: 20px;
-  font-size: 13px;
-  color: white;
+  font-size: 12px;
 }
 
 /* =========================
    TABLET
 ========================= */
-
 @media (max-width: 1024px) {
-  .movie-detail {
-    padding: 30px;
-  }
-
   .poster img {
-    width: 250px;
+    width: 240px;
   }
 
   .info h1 {
-    font-size: 30px;
-  }
-
-  .detail-container {
-    gap: 25px;
+    font-size: 32px;
   }
 }
 
 /* =========================
    MOBILE
 ========================= */
-
 @media (max-width: 768px) {
   .movie-detail {
     padding: 20px;
@@ -153,15 +190,10 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 20px;
   }
 
   .poster img {
-    width: 220px;
-  }
-
-  .info {
-    width: 100%;
+    width: 200px;
   }
 
   .info h1 {
@@ -170,12 +202,10 @@
 
   .meta {
     justify-content: center;
-    gap: 10px;
   }
 
   .description {
     max-width: 100%;
-    font-size: 14px;
   }
 
   .actions {
@@ -194,14 +224,9 @@
 /* =========================
    SMALL MOBILE
 ========================= */
-
 @media (max-width: 480px) {
-  .movie-detail {
-    padding: 15px;
-  }
-
   .poster img {
-    width: 180px;
+    width: 170px;
   }
 
   .info h1 {
