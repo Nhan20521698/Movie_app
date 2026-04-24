@@ -1,0 +1,49 @@
+.help-page {
+  background: #000;
+  min-height: 100vh;
+  color: white;
+}
+
+.help-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 60px 20px;
+}
+
+.help-title {
+  font-size: 36px;
+  margin-bottom: 30px;
+}
+
+.help-item {
+  background: #111;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  transition: 0.3s;
+}
+
+.help-item:hover {
+  background: #1c1c1c;
+}
+
+.help-item h3 {
+  color: #e50914;
+  margin-bottom: 8px;
+}
+
+.help-item p {
+  color: #ccc;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .help-title {
+    font-size: 26px;
+    text-align: center;
+  }
+
+  .help-container {
+    padding: 40px 15px;
+  }
+}

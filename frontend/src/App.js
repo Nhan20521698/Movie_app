@@ -6,6 +6,9 @@ import MovieDetail from "./pages/MovieDetails/MovieDetails";
 import LoginPage from "./pages/loginpage/LoginPage";
 import SignupPage from "./pages/signuppage/SignupPage";
 import NotFoundPage from "./pages/notfoundpage/NotFoundPage";
+import PrivacyPolicy from "./pages/privacypolicypage/PrivacyPolicyPage";
+import HelpCenter from "./pages/helpcenterpage/HeplCenterPage";
+import Contact from "./pages/contactpage/ContactPage";
 
 
 import { ToastContainer } from "react-toastify";
@@ -21,6 +24,9 @@ function App() {
         <Route path="/movies/:id" element={<MovieDetail />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/help" element={<HelpCenter />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <ToastContainer position="top-right" autoClose={3000} />
