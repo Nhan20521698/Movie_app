@@ -1,0 +1,95 @@
+.mylist-page {
+  background: #000;
+  min-height: 100vh;
+  color: white;
+  padding-bottom: 40px;
+}
+
+.title {
+  padding: 20px;
+  font-size: 28px;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+/* CARD */
+.card {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+
+/* OVERLAY */
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  padding: 10px;
+
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.card:hover .overlay {
+  opacity: 1;
+}
+
+/* EMPTY */
+.empty {
+  text-align: center;
+  margin-top: 80px;
+  color: #aaa;
+}
+
+/* SKELETON */
+.skeleton {
+  height: 260px;
+  background: #111;
+  border-radius: 10px;
+}
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .card img {
+    height: 200px;
+  }
+
+  .title {
+    text-align: center;
+  }
+}
+
+/* SMALL */
+@media (max-width: 480px) {
+  .card img {
+    height: 160px;
+  }
+}

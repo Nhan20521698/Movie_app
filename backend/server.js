@@ -16,6 +16,8 @@ app.use("/api/movies", movieRoutes);
 
 app.use("/api/auth", require("./routes/auth.routes"));
 
+app.use("/api/favorites", require("./routes/favorite.routes"));
+
 sequelize.authenticate().then(() => {
   console.log("DB connected");
   app.listen(5000, () => console.log("Server running"));

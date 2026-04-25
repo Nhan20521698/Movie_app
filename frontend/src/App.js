@@ -9,6 +9,7 @@ import NotFoundPage from "./pages/notfoundpage/NotFoundPage";
 import PrivacyPolicy from "./pages/privacypolicypage/PrivacyPolicyPage";
 import HelpCenter from "./pages/helpcenterpage/HeplCenterPage";
 import Contact from "./pages/contactpage/ContactPage";
+import MyList from "./pages/mylistpage/MyListPage";
 
 
 import { ToastContainer } from "react-toastify";
@@ -27,6 +28,7 @@ function App() {
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/help" element={<HelpCenter />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/mylist" element={<MyList />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <ToastContainer position="top-right" autoClose={3000} />

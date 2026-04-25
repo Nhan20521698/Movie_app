@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { FaGlobe, FaCalendarAlt } from "react-icons/fa";
+
 import { getMovieById } from "../../services/api";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
@@ -10,6 +12,7 @@ function MovieDetail() {
 
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showTrailer, setShowTrailer] = useState(false);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -28,43 +31,65 @@ function MovieDetail() {
     fetchMovie();
   }, [id]);
 
-  // 👉 format date đẹp hơn
   const formatDate = (date) => {
     if (!date) return "Unknown";
     return new Date(date).toLocaleDateString();
   };
 
   if (loading)
-    return <h2 style={{ color: "white", padding: "40px" }}>Loading...</h2>;
+    return <h2 className="loading">Loading...</h2>;
 
   if (!movie)
-    return <h2 style={{ color: "white", padding: "40px" }}>Movie not found</h2>;
+    return <h2 className="loading">Movie not found</h2>;
 
   return (
-    <div
-      className="movie-detail"
-      style={{ "--backdrop": `url(${movie.backdrop})` }}
-    >
+    <div className="movie-detail">
       <Navbar />
 
+      {/* 🎬 HERO BACKDROP */}
+      <div
+        className="hero"
+        style={{
+          backgroundImage: `url(${movie.backdrop})`
+        }}
+      >
+        <div className="hero-overlay">
+          <h1>{movie.title}</h1>
+
+          <div className="meta">
+            <span>{formatDate(movie.release_date)}</span>
+            <span>{movie.director || "Unknown"}</span>
+          </div>
+
+          <p>{movie.description}</p>
+
+          <div className="hero-actions">
+            <button onClick={() => setShowTrailer(true)}>
+              ▶ Play
+            </button>
+
+            <button className="secondary">
+              ❤️ {movie.likes || 0}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* 🎬 DETAIL */}
       <div className="detail-container">
-        {/* POSTER */}
         <div className="poster">
           <img src={movie.image} alt={movie.title} />
         </div>
 
-        {/* INFO */}
         <div className="info">
-          <h1>{movie.title}</h1>
-
-          <div className="meta">
-            <span>📅 {formatDate(movie.release_date)}</span>
-            <span>🎬 {movie.director || "Unknown"}</span>
+          {/* Country */}
+          <div className="section">
+            <h3>Country</h3>
+            <p>
+              <FaGlobe />
+              {movie.country || "Unknown"}
+            </p>
           </div>
-
-          <p className="description">
-            {movie.description || "No description available"}
-          </p>
 
           {/* GENRES */}
           {movie.Genres?.length > 0 && (
@@ -90,21 +115,49 @@ function MovieDetail() {
             </div>
           )}
 
-          {/* STATS */}
-          <div className="stats-badges">
-            <span>⭐ {movie.rating?.toFixed(1) || "N/A"}</span>
-            <span>❤️ {movie.likes || 0}</span>
-            <span>👁️ {movie.views || 0}</span>
-            <span>⏱️ {movie.duration || 0} min</span>
+          {/* Date Release */}
+          <div className="section">
+            <h3>Release Date</h3>
+            <p>
+              <FaCalendarAlt />
+              {formatDate(movie.release_date)}
+            </p>
           </div>
 
-          {/* ACTIONS */}
-          <div className="action-details">
-            <button className="play">▶ Play</button>
-            <button className="like">❤️ Like</button>
+          {/* STATS */}
+          <div className="stats">
+            <span>⭐ {movie.rating?.toFixed(1) || "N/A"}</span>
+            <span>👁️ {movie.views}</span>
+            <span>⏱️ {movie.duration} min</span>
           </div>
+          
         </div>
       </div>
+
+      {/* 🎥 TRAILER MODAL */}
+      {showTrailer && (
+        <div className="trailer-modal">
+          <div className="trailer-box">
+            <button
+              className="close"
+              onClick={() => setShowTrailer(false)}
+            >
+              ✖
+            </button>
+
+            {movie.trailer_url ? (
+              <iframe
+                src={`${movie.trailer_url}?autoplay=1&mute=1`}
+                allow="autoplay"
+                allowFullScreen
+                title="Trailer"
+              />
+            ) : (
+              <p>No trailer available</p>
+            )}
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>

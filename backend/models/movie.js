@@ -13,7 +13,9 @@ const Movie = sequelize.define("Movie", {
   rating: DataTypes.FLOAT,
   views: { type: DataTypes.INTEGER, defaultValue: 0 },
   likes: { type: DataTypes.INTEGER, defaultValue: 0 },
-  trailer_url: DataTypes.STRING
+  trailer_url: DataTypes.STRING,
+  country: DataTypes.STRING,
+  tmdb_id: { type: DataTypes.INTEGER, unique: true }
 }, { tableName: "movies",
   freezeTableName: true
 });

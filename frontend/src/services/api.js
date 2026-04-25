@@ -28,4 +28,8 @@ export const login = (data) => {
   return api.post("/auth/login", data);
 };
 
+export const getFavorites = () => {
+  return api.get("/favorites");
+};
+
 export default api;

@@ -4,8 +4,10 @@ const Movie = require("./movie");
 const Actor = require("./actor");
 const Genre = require("./genre");
 const User = require("./user");
+const Favorite = require("./favorite");
 
 // relations
+// relations between Movie and Actor (many-to-many)
 Movie.belongsToMany(Actor, {
   through: "movie_actors",
   foreignKey: "movie_id",
@@ -20,6 +22,7 @@ Actor.belongsToMany(Movie, {
   as: "Movies"
 });
 
+// relations between Movie and Genre (many-to-many)
 Movie.belongsToMany(Genre, {
   through: "movie_genres",
   foreignKey: "movie_id",
@@ -34,10 +37,26 @@ Genre.belongsToMany(Movie, {
   as: "Movies"
 });
 
+// relations between User and Movie (many-to-many through Favorite)
+Movie.belongsToMany(User, {
+  through: Favorite,
+  foreignKey: "movie_id",
+  otherKey: "user_id",
+  as: "LikedUsers"
+});
+
+User.belongsToMany(Movie, {
+  through: Favorite,
+  foreignKey: "user_id",
+  otherKey: "movie_id",
+  as: "FavoriteMovies"
+});
+
 module.exports = {
   sequelize,
   Movie,
   Actor,
   Genre,
-  User
+  User,
+  Favorite
 };

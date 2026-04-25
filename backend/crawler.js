@@ -91,7 +91,7 @@ async function processMovie(m) {
       {
         params: {
           api_key: API_KEY,
-          append_to_response: "credits"
+          append_to_response: "credits,videos"
         }
       }
     );
@@ -99,9 +99,22 @@ async function processMovie(m) {
     const d = detail.data;
 
     const director =
-      d.credits.crew.find((c) => c.job === "Director")?.name || "";
+      d.credits.crew.find((c) => c.job === "Director")?.name || "Unknown";
 
-    // 🎯 Generate realistic stats
+    const country =
+      d.production_countries?.map(c => c.name).join(", ") || "Unknown";
+
+    // 🎬 trailer
+    const trailerObj =
+      d.videos?.results?.find(
+        v => v.type === "Trailer" && v.site === "YouTube"
+      ) ||
+      d.videos?.results?.find(v => v.site === "YouTube");
+
+    const trailer = trailerObj
+      ? `https://www.youtube.com/embed/${trailerObj.key}`
+      : ""; // không null
+
     const rating = Math.round(d.vote_average * 10) / 10;
 
     const views = Math.floor(
@@ -112,16 +125,23 @@ async function processMovie(m) {
       views * (0.05 + Math.random() * 0.15)
     );
 
-    // insert movie
+    // 🔥 FIX QUAN TRỌNG: dùng tmdb_id
     const [result] = await db.query(
-      `INSERT INTO movies 
-      (title, release_date, image, backdrop, description, director, rating, duration, views, likes) 
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-      ON DUPLICATE KEY UPDATE 
+      `INSERT INTO movies (
+        tmdb_id, title, release_date, image, backdrop,
+        description, director, rating, duration,
+        views, likes, trailer_url, country
+      )
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      ON DUPLICATE KEY UPDATE
+        title = VALUES(title),
         rating = VALUES(rating),
         views = VALUES(views),
-        likes = VALUES(likes)`,
+        likes = VALUES(likes),
+        trailer_url = VALUES(trailer_url),
+        country = VALUES(country)`,
       [
+        d.id, // ✅ cực kỳ quan trọng
         d.title,
         d.release_date,
         `https://image.tmdb.org/t/p/w500${d.poster_path}`,
@@ -131,31 +151,23 @@ async function processMovie(m) {
         rating,
         d.runtime,
         views,
-        likes
+        likes,
+        trailer,
+        country
       ]
     );
 
-    let movieId;
+    // 🔥 lấy đúng movie bằng tmdb_id
+    const [rows] = await db.query(
+      "SELECT id FROM movies WHERE tmdb_id = ?",
+      [d.id]
+    );
 
-    if (result.insertId && result.insertId !== 0) {
-      movieId = result.insertId;
-    } else {
-      const [rows] = await db.query(
-        "SELECT id FROM movies WHERE title = ?",
-        [d.title]
-      );
+    if (!rows.length) return;
 
-      if (!rows.length) {
-        console.error("❌ Không tìm thấy movie:", d.title);
-        return;
-      }
+    const movieId = rows[0].id;
 
-      movieId = rows[0].id;
-    }
-
-    if (!movieId) return;
-
-    // ================= ACTORS =================
+    // ACTORS
     for (let a of d.credits.cast.slice(0, 5)) {
       const actorId = await insertActor(a);
 
@@ -165,7 +177,7 @@ async function processMovie(m) {
       );
     }
 
-    // ================= GENRES =================
+    // GENRES
     for (let g of d.genres) {
       const genreId = await insertGenre(g.name);
 

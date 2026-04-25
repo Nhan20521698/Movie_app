@@ -15,8 +15,8 @@ function Footer() {
           <h4>Links</h4>
           <ul>
             <li><Link to="/">Home</Link></li>
-            <li>Movies</li>
-            <li>My List</li>
+            <li><Link to="/movies">Movies</Link></li>
+            <li><Link to="/mylist">My List</Link></li>
           </ul>
         </div>
 

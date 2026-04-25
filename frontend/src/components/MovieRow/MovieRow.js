@@ -69,10 +69,12 @@ function MovieRow({ title, movies }) {
         }}
       >
         {movies.slice(0, 20).map((movie) => (
+          
           <Link
             to={`/movies/${movie.id}`}
-            key={movie.id}
+            key={`${movie.id}-${movie.tmdb_id}`}
             className="card-link"
+             onClick={() => console.log("CLICK:", movie.id, movie.title)}
           >
             <div className="card">
               <img src={movie.image} alt={movie.title} />

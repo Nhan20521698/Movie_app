@@ -6,15 +6,17 @@ function NotFoundPage() {
 
   return (
     <div className="notfound-page">
-      <div className="overlay">
+      <div className="notfound-overlay">
         <div className="content">
           <h1>404</h1>
           <h2>Oops! Page not found</h2>
+
           <img
             className="meme"
-            src="https://imgur.com/qIufhof.png"
+            src="https://i.imgur.com/qIufhof.png"
             alt="404 meme"
           />
+
           <p>
             The page you are looking for does not exist or has been deleted.
           </p>

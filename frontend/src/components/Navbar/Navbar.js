@@ -50,7 +50,7 @@ function Navbar() {
           <li onClick={() => navigate("/")}>Home</li>
           <li>Movies</li>
           <li>TV Shows</li>
-          <li>My List</li>  
+          <li onClick={() => navigate("/mylist")}>My List</li>
         </ul>
 
         {/* USER */}
