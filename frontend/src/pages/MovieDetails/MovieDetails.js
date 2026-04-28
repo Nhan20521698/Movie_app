@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FaGlobe, FaCalendarAlt } from "react-icons/fa";
 
-import { getMovieById } from "../../services/api";
+import {
+  getMovieById,
+  toggleFavorite,
+  checkFavorite
+} from "../../services/api";
+
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import "./MovieDetails.css";
@@ -13,13 +18,25 @@ function MovieDetail() {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showTrailer, setShowTrailer] = useState(false);
+  const [liked, setLiked] = useState(false);
 
   useEffect(() => {
     const fetchMovie = async () => {
       try {
         setLoading(true);
+
+        // 🔥 lấy thông tin phim
         const res = await getMovieById(id);
         setMovie(res?.data || null);
+
+        // 🔥 check trạng thái like
+        const token = localStorage.getItem("token");
+
+        if (token) {
+          const favRes = await checkFavorite(id);
+          setLiked(favRes.data.liked);
+        }
+
       } catch (err) {
         console.error(err);
         setMovie(null);
@@ -30,6 +47,27 @@ function MovieDetail() {
 
     fetchMovie();
   }, [id]);
+
+  // 🔥 HANDLE LIKE
+  const handleLike = async () => {
+    try {
+      const res = await toggleFavorite(movie.id);
+
+      setLiked(res.data.liked);
+
+      // update UI ngay lập tức
+      setMovie(prev => ({
+        ...prev,
+        likes: res.data.liked
+          ? (prev.likes || 0) + 1
+          : Math.max((prev.likes || 1) - 1, 0)
+      }));
+
+    } catch (err) {
+      console.error(err);
+      alert("Please login first");
+    }
+  };
 
   const formatDate = (date) => {
     if (!date) return "Unknown";
@@ -46,7 +84,7 @@ function MovieDetail() {
     <div className="movie-detail">
       <Navbar />
 
-      {/* 🎬 HERO BACKDROP */}
+      {/* 🎬 HERO */}
       <div
         className="hero"
         style={{
@@ -68,7 +106,11 @@ function MovieDetail() {
               ▶ Play
             </button>
 
-            <button className="secondary">
+            {/* ❤️ LIKE BUTTON */}
+            <button
+              className={`secondary ${liked ? "active" : ""}`}
+              onClick={handleLike}
+            >
               ❤️ {movie.likes || 0}
             </button>
           </div>
@@ -82,7 +124,6 @@ function MovieDetail() {
         </div>
 
         <div className="info">
-          {/* Country */}
           <div className="section">
             <h3>Country</h3>
             <p>
@@ -91,7 +132,6 @@ function MovieDetail() {
             </p>
           </div>
 
-          {/* GENRES */}
           {movie.Genres?.length > 0 && (
             <div className="section">
               <h3>Genres</h3>
@@ -103,7 +143,6 @@ function MovieDetail() {
             </div>
           )}
 
-          {/* ACTORS */}
           {movie.Actors?.length > 0 && (
             <div className="section">
               <h3>Actors</h3>
@@ -115,7 +154,6 @@ function MovieDetail() {
             </div>
           )}
 
-          {/* Date Release */}
           <div className="section">
             <h3>Release Date</h3>
             <p>
@@ -124,17 +162,15 @@ function MovieDetail() {
             </p>
           </div>
 
-          {/* STATS */}
           <div className="stats">
             <span>⭐ {movie.rating?.toFixed(1) || "N/A"}</span>
             <span>👁️ {movie.views}</span>
             <span>⏱️ {movie.duration} min</span>
           </div>
-          
         </div>
       </div>
 
-      {/* 🎥 TRAILER MODAL */}
+      {/* 🎥 TRAILER */}
       {showTrailer && (
         <div className="trailer-modal">
           <div className="trailer-box">

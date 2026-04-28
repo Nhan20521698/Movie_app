@@ -191,6 +191,12 @@
   padding: 60px;
 }
 
+.secondary.active {
+  background: #e50914;
+  color: white;
+  transform: scale(1.05);
+}
+
 /* ================= TABLET ================= */
 @media (max-width: 1024px) {
   .hero {

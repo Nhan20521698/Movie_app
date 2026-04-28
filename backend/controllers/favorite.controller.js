@@ -2,11 +2,11 @@ const { Favorite, Movie } = require("../models");
 
 exports.toggleFavorite = async (req, res) => {
   try {
-    const userId = 1; // ⚠️ test tạm
-    const { movieId } = req.body;
+    const userId = req.user.id; // ✅ lấy từ token
+    const { movie_id } = req.body; // 🔥 đồng bộ frontend
 
     const existing = await Favorite.findOne({
-      where: { user_id: userId, movie_id: movieId }
+      where: { user_id: userId, movie_id }
     });
 
     if (existing) {
@@ -15,24 +15,24 @@ exports.toggleFavorite = async (req, res) => {
 
       await Movie.decrement("likes", {
         by: 1,
-        where: { id: movieId }
+        where: { id: movie_id }
       });
 
       return res.json({ liked: false });
-    } else {
-      // ✅ LIKE
-      await Favorite.create({
-        user_id: userId,
-        movie_id: movieId
-      });
-
-      await Movie.increment("likes", {
-        by: 1,
-        where: { id: movieId }
-      });
-
-      return res.json({ liked: true });
     }
+
+    // ✅ LIKE
+    await Favorite.create({
+      user_id: userId,
+      movie_id
+    });
+
+    await Movie.increment("likes", {
+      by: 1,
+      where: { id: movie_id }
+    });
+
+    res.json({ liked: true });
 
   } catch (err) {
     console.error(err);
@@ -42,16 +42,20 @@ exports.toggleFavorite = async (req, res) => {
 
 exports.getFavorites = async (req, res) => {
   try {
-    const userId = 1; // ⚠️ test tạm    
+    const userId = req.user.id;
+
     const favorites = await Favorite.findAll({
-        where: { user_id: userId },
-        include: {
-            model: Movie,
-            as: "Movie",
-            attributes: ["id", "title", "poster_path"]
+      where: { user_id: userId },
+      include: [
+        {
+          model: Movie,
+          attributes: ["id", "title", "image"]
         }
-    }); 
+      ]
+    });
+
     res.json(favorites);
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: err.message });
@@ -60,11 +64,11 @@ exports.getFavorites = async (req, res) => {
 
 exports.checkFavorite = async (req, res) => {
   try {
-    const userId = 1;
-    const { movieId } = req.query;
+    const userId = req.user.id;
+    const { movie_id } = req.query;
 
     const exists = await Favorite.findOne({
-      where: { user_id: userId, movie_id: movieId }
+      where: { user_id: userId, movie_id }
     });
 
     res.json({ liked: !!exists });
@@ -73,4 +77,3 @@ exports.checkFavorite = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-

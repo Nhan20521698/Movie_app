@@ -52,6 +52,24 @@ User.belongsToMany(Movie, {
   as: "FavoriteMovies"
 });
 
+// 🔥 THÊM VÀO CUỐI FILE
+
+Favorite.belongsTo(Movie, {
+  foreignKey: "movie_id"
+});
+
+Favorite.belongsTo(User, {
+  foreignKey: "user_id"
+});
+
+Movie.hasMany(Favorite, {
+  foreignKey: "movie_id"
+});
+
+User.hasMany(Favorite, {
+  foreignKey: "user_id"
+});
+
 module.exports = {
   sequelize,
   Movie,

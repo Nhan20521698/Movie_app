@@ -1,47 +1,67 @@
+/* PAGE */
 .mylist-page {
-  background: #000;
+  background: #0b0b0b;
   min-height: 100vh;
   color: white;
-  padding-bottom: 40px;
 }
 
+/* TITLE */
 .title {
-  padding: 20px;
   font-size: 28px;
+  font-weight: 600;
+  margin: 30px auto 10px;
+  max-width: 1200px;
+  padding: 0 20px;
 }
 
-/* GRID */
+/* GRID WRAPPER (FIX LỆCH) */
 .grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 20px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 18px;
 }
 
 /* CARD */
 .card {
   position: relative;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
+  transition: all 0.3s ease;
+  background: #111;
 }
 
+/* IMAGE */
 .card img {
   width: 100%;
   height: 260px;
   object-fit: cover;
+  display: block;
+  transition: 0.4s;
+}
+
+/* HOVER */
+.card:hover {
+  transform: scale(1.06);
+  z-index: 5;
+}
+
+.card:hover img {
+  filter: brightness(0.7);
 }
 
 /* OVERLAY */
 .overlay {
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
-
-  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-  padding: 10px;
-
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.9));
+  color: #fff;
   opacity: 0;
   transition: 0.3s;
 }
@@ -50,46 +70,192 @@
   opacity: 1;
 }
 
+.overlay h3 {
+  font-size: 14px;
+  margin: 0;
+}
+
+/* REMOVE BUTTON */
+.remove-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0,0,0,0.7);
+  border: none;
+  color: white;
+  font-size: 14px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  transition: 0.25s;
+}
+
+.remove-btn:hover {
+  background: #e50914;
+  transform: scale(1.1);
+}
+
 /* EMPTY */
 .empty {
   text-align: center;
-  margin-top: 80px;
   color: #aaa;
+  margin-top: 80px;
+}
+
+.empty h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
 }
 
 /* SKELETON */
 .skeleton {
   height: 260px;
-  background: #111;
-  border-radius: 10px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #222, #333, #222);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
 }
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* TOAST */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #111;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  z-index: 999;
+  animation: slideIn 0.3s ease, fadeOut 0.3s ease 1.7s forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* TOAST BASE */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #fff;
+  z-index: 999;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  animation: slideIn 0.3s ease, fadeOut 0.3s ease 1.7s forwards;
+}
+
+/* ✅ SUCCESS */
+.toast.success {
+  background: linear-gradient(135deg, #00c853, #00e676);
+  box-shadow: 0 4px 20px rgba(0, 200, 83, 0.4);
+}
+
+/* ❌ ERROR */
+.toast.error {
+  background: linear-gradient(135deg, #ff1744, #ff5252);
+  box-shadow: 0 4px 20px rgba(255, 23, 68, 0.4);
+}
+
+/* ANIMATION */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* 🔥 RESPONSIVE */
 
 /* TABLET */
 @media (max-width: 1024px) {
   .grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  .card img {
+    height: 220px;
   }
 }
 
 /* MOBILE */
 @media (max-width: 768px) {
+  .title {
+    font-size: 22px;
+    text-align: center;
+  }
+
   .grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
+    padding: 15px;
   }
 
   .card img {
     height: 200px;
   }
 
-  .title {
-    text-align: center;
+  .overlay h3 {
+    font-size: 12px;
+  }
+
+  .remove-btn {
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
+  }
+
+  .toast {
+    right: 10px;
+    top: 10px;
+    font-size: 13px;
   }
 }
 
-/* SMALL */
+/* SMALL MOBILE */
 @media (max-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .card img {
-    height: 160px;
+    height: 180px;
   }
 }
