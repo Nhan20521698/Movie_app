@@ -57,4 +57,12 @@ export const checkFavorite = (movie_id) => {
   });
 };
 
+export const getGenres = () => { 
+  return api.get("/genres");
+};
+
+export const getMoviesByGenreId = (genreId) => {
+  return api.get(`/genres/${genreId}/movies`);
+};
+
 export default api;

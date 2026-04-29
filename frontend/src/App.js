@@ -10,7 +10,7 @@ import PrivacyPolicy from "./pages/privacypolicypage/PrivacyPolicyPage";
 import HelpCenter from "./pages/helpcenterpage/HeplCenterPage";
 import Contact from "./pages/contactpage/ContactPage";
 import MyList from "./pages/mylistpage/MyListPage";
-
+import GenresPage from "./pages/genrepage/GenrePage";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -29,6 +29,7 @@ function App() {
         <Route path="/help" element={<HelpCenter />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/mylist" element={<MyList />} />
+        <Route path="/genres" element={<GenresPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <ToastContainer position="top-right" autoClose={3000} />

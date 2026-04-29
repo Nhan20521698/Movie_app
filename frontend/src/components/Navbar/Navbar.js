@@ -48,7 +48,7 @@ function Navbar() {
         {/* MENU */}
         <ul className='nav-links'>
           <li onClick={() => navigate("/")}>Home</li>
-          <li>Movies</li>
+          <li onClick={() => navigate("/genres")}>Genres</li>
           <li>TV Shows</li>
           <li onClick={() => navigate("/mylist")}>My List</li>
         </ul>
