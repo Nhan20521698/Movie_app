@@ -1,159 +1,89 @@
-*{ 
-  margin: 0; padding: 0; 
-  box-sizing: border-box; 
-  font-size: 16px; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
- } 
- .navbar .container { 
-  background-color: #141414; 
-  color: white; 
-  padding: 10px 20px; 
-  display: flex; 
-  align-items: center; 
-  flex-direction: row; 
-  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.5); 
-} 
-.navbar .container .header { 
-  font-size: 24px; 
-  font-weight: bold; 
-  width: 20%; 
-} 
-.navbar .container .header img { 
-  height: 5em; width: auto; 
-  margin-top: 0.5em; 
-} 
-.navbar .container .nav-links{ 
-  display: flex; 
-  flex-direction: row; 
-  gap: 20px; 
-  list-style-type: none; 
-  width: 60%; 
-  text-align: center; 
-  align-items: center; 
-  justify-content: center; 
-} 
-.navbar .container .nav-links li { 
-  cursor: pointer; 
-  transition: 0.3s; 
-  padding: 0.5em 1em; 
-} 
-.navbar .container .nav-links li:hover { 
-  background-color: #555; 
-  border-radius: 0.5em; 
-} 
-.nav-user { 
-  display: flex; 
-  align-items: center; 
-  gap: 10px; 
-  margin-left: auto; 
-} 
-.login { 
-  background: transparent; 
-  border: 1px solid white; 
-  color: white; 
-  padding: 6px 12px; 
-  border-radius: 0.5em; 
-  cursor: pointer; 
-  transition: 0.3s; 
-} 
-.login:hover { 
-  background: white; 
-  color: black; 
-} 
-.signup { 
-  background: #e50914; 
-  border: none; 
-  color: white; 
-  padding: 6px 12px; 
-  border-radius: 0.5em; 
-  cursor: pointer; 
-  font-weight: bold; 
-  transition: 0.3s; 
-} 
-.signup:hover { 
-  background: #f40612; 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Lucida Sans', sans-serif;
 }
 
 /* =========================
-   TABLET (<=1024px)
+   NAVBAR
 ========================= */
-@media (max-width: 1024px) {
-  .navbar .container {
-    padding: 10px 15px;
-  }
+.navbar .container {
+  background-color: #141414;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
 
-  .navbar .container .header {
-    width: auto;
-  }
+/* LOGO */
+.header img {
+  height: 50px;
+  cursor: pointer;
+}
 
-  .navbar .container .header img {
-    height: 4em;
-  }
+/* NAV LINKS */
+.nav-links {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
 
-  .navbar .container .nav-links {
-    gap: 12px;
-  }
+.nav-links li {
+  cursor: pointer;
+  padding: 8px 12px;
+  transition: 0.3s;
+}
 
-  .navbar .container .nav-links li {
-    padding: 0.4em 0.8em;
-    font-size: 14px;
-  }
+.nav-links li:hover {
+  background: #333;
+  border-radius: 6px;
+}
 
-  .login,
-  .signup {
-    padding: 5px 10px;
-    font-size: 14px;
-  }
+/* USER */
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.login {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login:hover {
+  background: white;
+  color: black;
+}
+
+.signup {
+  background: #e50914;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.signup:hover {
+  background: #f40612;
 }
 
 /* =========================
-   MOBILE (<=768px)
+   AVATAR + DROPDOWN
 ========================= */
-@media (max-width: 768px) {
-  .navbar .container {
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 10px;
-  }
-
-  .navbar .container .header {
-    width: auto;
-  }
-
-  .navbar .container .header img {
-    height: 3.5em;
-  }
-
-  /* NAV LINKS xuống hàng */
-  .navbar .container .nav-links {
-    width: 100%;
-    justify-content: space-around;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 10px;
-  }
-
-  .navbar .container .nav-links li {
-    font-size: 13px;
-    padding: 0.3em 0.6em;
-  }
-
-  .nav-user {
-    width: 100%;
-    justify-content: center;
-    margin-top: 10px;
-    gap: 8px;
-  }
-
-  .login,
-  .signup {
-    padding: 6px 10px;
-    font-size: 13px;
-  }
-}
 
 .user-box {
   position: relative;
-  cursor: pointer;
 }
 
 .avatar {
@@ -162,43 +92,183 @@
   border-radius: 50%;
   border: 2px solid #e50914;
   object-fit: cover;
+  cursor: pointer;
 }
 
-/* dropdown */
+/* DROPDOWN */
 .dropdown {
   position: absolute;
   top: 55px;
   right: 0;
   background: #1c1c1c;
-  padding: 15px;
-  border-radius: 10px;
-  min-width: 180px; /* 🔥 to hơn */
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-  animation: fadeIn 0.2s ease;
+  padding: 16px;
+  border-radius: 12px;
+  min-width: 200px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+  animation: fadeIn 0.25s ease;
+  z-index: 999;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.08);
 }
 
 .dropdown p {
-  margin-bottom: 12px;
-  font-size: 16px;
-  font-weight: bold;
+  margin-bottom: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
 }
 
 .dropdown button {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   border: none;
   background: #e50914;
   color: white;
   font-weight: bold;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.25s;
 }
 
 .dropdown button:hover {
-  background: #f6121d;
+  background: #ff1e1e;
   transform: scale(1.05);
 }
+
+/* =========================
+   HAMBURGER MENU
+========================= */
+
+.menu-icon {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.close-btn {
+  display: none;
+  font-size: 22px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 1024px) {
+  .header img {
+    height: 45px;
+  }
+
+  .nav-links {
+    gap: 12px;
+  }
+
+  .nav-links li {
+    font-size: 14px;
+  }
+
+  .login,
+  .signup {
+    font-size: 14px;
+  }
+}
+
+/* =========================
+   MOBILE MENU (QUAN TRỌNG)
+========================= */
+
+@media (max-width: 768px) {
+
+  .menu-icon {
+    display: block;
+    color: white;
+  }
+
+  /* MENU TRƯỢT */
+  .nav-links {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 70%;
+    height: 100vh;
+    background: #141414;
+    flex-direction: column;
+    padding: 40px 20px;
+    transition: 0.3s;
+    z-index: 999;
+  }
+
+  .nav-links.active {
+    left: 0;
+  }
+
+  .close-btn {
+    display: block;
+  }
+
+  .nav-links li {
+    padding: 15px 0;
+    font-size: 18px;
+  }
+
+  /* USER */
+  .nav-user {
+    gap: 6px;
+  }
+
+  .login,
+  .signup {
+    font-size: 13px;
+    padding: 5px 8px;
+  }
+
+  /* 🔥 DROPDOWN MOBILE FIX */
+  .dropdown {
+    position: fixed;
+    top: 70px;
+    left: 10px;
+    right: 10px;
+    width: auto;
+    padding: 20px;
+  }
+
+  .dropdown p {
+    font-size: 16px;
+  }
+
+  .dropdown button {
+    font-size: 16px;
+    padding: 14px;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+  .header img {
+    height: 40px;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .login,
+  .signup {
+    font-size: 12px;
+  }
+}
+
+/* =========================
+   ANIMATION
+========================= */
 
 @keyframes fadeIn {
   from {
@@ -208,81 +278,5 @@
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-/* =========================
-   SMALL MOBILE (<=480px)
-========================= */
-@media (max-width: 768px) {
-  .navbar .container {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .nav-links {
-    width: 100%;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .nav-user {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-@media (max-width: 480px) {
-
-  .navbar .container {
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-    gap: 10px;
-  }
-
-  /* HEADER (LOGO) */
-  .navbar .container .header {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-
-  .navbar .container .header img {
-    height: 3em;
-    margin-top: 0;
-  }
-
-  /* NAV LINKS */
-  .navbar .container .nav-links {
-    width: 100%;
-    flex-direction: column;
-    gap: 6px;
-    padding: 0;
-  }
-
-  .navbar .container .nav-links li {
-    width: 100%;
-    text-align: center;
-    padding: 0.6em;
-    background: #1f1f1f;
-    border-radius: 6px;
-    font-size: 13px;
-  }
-
-  /* USER BUTTONS */
-  .nav-user {
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .login,
-  .signup {
-    width: 100%;
-    max-width: 200px;
-    text-align: center;
-    font-size: 13px;
   }
 }
